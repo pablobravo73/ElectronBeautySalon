@@ -21,32 +21,57 @@ function createWindow () {
   //   console.log(title)
   //  })
   
-  ipcMain.on('set-title', (event, formValues) => {
-    console.log(formValues)
+ 
 
+  ipcMain.on('set-title', (event, formValues) => {
+    // POST
     db.run('INSERT INTO users (name, lastname) VALUES (?, ?)', [formValues.name, formValues.lastname], function(err) {
       if (err) {
         return console.log(err.message);
       }
       // get the last insert id
       console.log(`A row has been inserted with rowid ${this.lastID}`);
+
+      // close the database connection
+
+      db.close();
     });
-  //   //console.log(fname, lname)
-  //   db.run('INSERT INTO users (name, lastname) VALUES (?, ?)', [fname, lname], function(err) {
-  //     if (err) {
-  //       return console.log(err.message);
-  //     }
-  //     // get the last insert id
-  //     console.log(`A row has been inserted with rowid ${this.lastID}`);
-  //   });
-    //console.log(fname, lname)
-  //   db.run('INSERT INTO users (name, lastname) VALUES (?, ?)', [fname, lname], function(err) {
-  //     if (err) {
-  //       return console.log(err.message);
-  //     }
-  //     // get the last insert id
-  //     console.log(`A row has been inserted with rowid ${this.lastID}`);
-  //   });
+
+    // GET
+    db.all('SELECT * FROM users', [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        console.log(row);
+      });
+    });
+
+    // UPDATE
+    db.run(`UPDATE users SET name = ? WHERE id = ?`, ['John', 1], function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row(s) updated: ${this.changes}`);
+    }
+    );
+
+    // DELETE
+    db.run(`DELETE FROM users WHERE id = ?`, 1, function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row(s) deleted ${this.changes}`);
+    });
+
+    // CLOSE
+    db.close((err) => {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log('Close the database connection.');
+    });
+  
   })
 }
 

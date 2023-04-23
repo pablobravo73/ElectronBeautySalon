@@ -6,36 +6,113 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
     <link rel="stylesheet" href="./styles.css" />
-    
-    <title>Hello from Electron renderer!</title>
+
+    <title>Salon de Belleza</title>
 </head>
 
 <body>
-    <h1>Hello from Electron renderer!</h1>
     
 
-    <br />
-    <br />
-    
-    <br />
-    <div>
-        <form id="miFormulario"class="container-form">
-            <h3>Formulario</h3>
+    <div class="container">
+        <div class="nav-bar">
+            
+            <ul>
+                <li>
+                    <img src="./img/home.png"
+                        alt="home"
+                        type="icon"
+                        title="home">                        
+                    <a href="#"></a>
+                </li>
 
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+                <li>
+                    <img src="./img/calendar.png"
+                        alt="calendar"
+                        type="icon">                        
+                    <a href="#"></a>
+                </li>
 
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+                <li>
+                    <img src="./img/people.png"
+                        alt="people"
+                        type="icon">                        
+                    <a href="#"></a>
+                </li>
 
-            <input type="submit" id="submit" value="Submit">
-        </form>
-    </div>
-    <br />
+                <li>
+                    <img src="./img/money.png"
+                        alt="money"
+                        type="icon">                        
+                    <a href="#"></a>
+                </li>
+
+                <li>
+                    <img src="./img/inventory.png"
+                        alt="inventory"
+                        type="icon">                        
+                    <a href="#"></a>
+                </li>
+
+
+            </ul>
+        </div>
+        
+        <div class="container-body">
+        <div class="header">Salon de Belleza</div>
+        <div class="element">
+            <form id="miFormulario" class="container-form">
+                <h3>Agendar Cita</h3>
+
+                <label for="fname">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+
+
+                <input type="submit" id="submit" value="Submit">
+
+            </form>
+        </div>
+        <div class="element">
+            <form id="miFormulario" class="container-form">
+                <h3>Servicios</h3>
+
+                <label for="fname">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+
+
+                <input type="submit" id="submit" value="Submit">
+
+            </form>
+        </div>
+        <div class="element">
+            <form id="miFormulario" class="container-form">
+                <h3>Productos Vendidos</h3>
+
+                <label for="fname">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+
+
+                <input type="submit" id="submit" value="Submit">
+
+            </form>
+        </div>
+
+        </div>
    
-
-
+        
+             
+      </div>
+      
 
 </body>
 <script src="./renderer.js"></script>
