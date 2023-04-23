@@ -13,106 +13,91 @@
 </head>
 
 <body>
-    
+
 
     <div class="container">
         <div class="nav-bar">
-            
+
             <ul>
                 <li>
-                    <img src="./img/home.png"
-                        alt="home"
-                        type="icon"
-                        title="home">                        
+                    <img src="./img/home.png" alt="home" type="icon" title="home">
                     <a href="#"></a>
                 </li>
 
                 <li>
-                    <img src="./img/calendar.png"
-                        alt="calendar"
-                        type="icon">                        
+                    <img src="./img/calendar.png" alt="calendar" type="icon">
                     <a href="#"></a>
                 </li>
 
                 <li>
-                    <img src="./img/people.png"
-                        alt="people"
-                        type="icon">                        
+                    <img src="./img/people.png" alt="people" type="icon">
                     <a href="#"></a>
                 </li>
 
                 <li>
-                    <img src="./img/money.png"
-                        alt="money"
-                        type="icon">                        
+                    <img src="./img/money.png" alt="money" type="icon">
                     <a href="#"></a>
                 </li>
 
                 <li>
-                    <img src="./img/inventory.png"
-                        alt="inventory"
-                        type="icon">                        
+                    <img src="./img/inventory.png" alt="inventory" type="icon">
                     <a href="#"></a>
                 </li>
 
 
             </ul>
         </div>
-        
+
         <div class="container-body">
-        <div class="header">Salon de Belleza</div>
-        <div class="element">
-            <form id="miFormulario" class="container-form">
-                <h3>Agendar Cita</h3>
+            <div class="header">
+                <div class="header-text">
+                    <p>Salon de Belleza</p>
+            
+                    <!-- <search>
+                        <input type="text" placeholder="Buscar">
+                        <button type="submit">Buscar</button>
+                    </search> -->
+                </div>
+            </div>
+            <div class="element">
+                <form id="miFormulario" class="container-form">
+                    <h3>Agendar Cita</h3>
 
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre">
 
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" name="apellido" id="apellido">
 
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" name="telefono" id="telefono">
 
-                <input type="submit" id="submit" value="Submit">
+                    <label for="correo">Correo electrónico:</label>
+                    <input type="email" name="correo" id="correo">
 
-            </form>
-        </div>
-        <div class="element">
-            <form id="miFormulario" class="container-form">
-                <h3>Servicios</h3>
+                    <label for="fecha">Fecha de cita:</label>
+                    <input type="date"   name="fecha" id="fecha">
 
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
+                    <label for="hora">Hora de cita:</label>
+                    <input type="time"  name="hora" id="hora">
 
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
-
-
-                <input type="submit" id="submit" value="Submit">
-
-            </form>
-        </div>
-        <div class="element">
-            <form id="miFormulario" class="container-form">
-                <h3>Productos Vendidos</h3>
-
-                <label for="fname">First name:</label><br>
-                <input type="text" id="fname" name="fname" value="" placeholder="Jhon"><br>
-
-                <label for="lname">Last name:</label><br>
-                <input type="text" id="lname" name="lname" value="" placeholder="Doe"><br><br>
+                   
 
 
-                <input type="submit" id="submit" value="Submit">
+                    <input type="submit" id="submit" value="Submit">
 
-            </form>
-        </div>
+                </form>
+            </div>
+            
+                </form>
+            </div>
 
         </div>
-   
-        
-             
-      </div>
-      
+
+
+
+    </div>
+
 
 </body>
 <script src="./renderer.js"></script>

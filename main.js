@@ -4,7 +4,19 @@ const sqlite3 = require('sqlite3').verbose();
 
 // Creamos una instancia de la base de datos
 const db = new sqlite3.Database('mydatabase.db');
-db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, lastname TEXT)'); 
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    lastname TEXT
+    phone INTEGER
+    email TEXT
+    apoointmentDate DATE
+    apointmentTime TIME
+    )`)
+// db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, lastname TEXT)'); 
+
+
 
 
 
@@ -25,7 +37,14 @@ function createWindow () {
 
   ipcMain.on('set-title', (event, formValues) => {
     // POST
-    db.run('INSERT INTO users (name, lastname) VALUES (?, ?)', [formValues.name, formValues.lastname], function(err) {
+    db.run('INSERT INTO users (name, lastname, phone, email, appointmentDate, appointmentTime)  VALUES (?, ?, ?, ?, ?, ?)', [
+                                                                formValues.name,
+                                                                formValues.lastname,
+                                                                formValues.phone,
+                                                                formValues.email,
+                                                                formValues.apointmentDate,
+                                                                formValues.apointmentTime,
+                                                                                         ], function(err) {
       if (err) {
         return console.log(err.message);
       }
@@ -81,6 +100,8 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+   
 })
 
 app.on('window-all-closed', function () {
