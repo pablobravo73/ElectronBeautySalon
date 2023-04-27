@@ -60,26 +60,35 @@
                 </div>
             </div>
             <div class="element">
-                <form id="miFormulario" class="container-form">
+                <form id="apointRegisterForm" class="container-form">
                     <h3>Agendar Cita</h3>
 
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre">
+                    <input type="text" name="nombre" id="name">
 
                     <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="apellido">
+                    <input type="text" name="apellido" id="lastname">
 
                     <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="telefono">
+                    <input type="tel" name="telefono" id="phone">
 
                     <label for="correo">Correo electrónico:</label>
-                    <input type="email" name="correo" id="correo">
+                    <input type="email" name="correo" id="email">
+
+                    <label for="servicio">Servicio:</label>
+                    <select name="servicio" id="service">
+                        <option value="corte">Corte</option>
+                        <option value="manicure">Manicure</option>
+                        <option value="pedicure">Pedicure</option>
+                        <option value="tinte">Tinte</option>
+                        <option value="peinado">Peinado</option>
+                        <option value="maquillaje">Maquillaje</option>
 
                     <label for="fecha">Fecha de cita:</label>
-                    <input type="date"   name="fecha" id="fecha">
+                    <input type="date"   name="fecha" id="date">
 
                     <label for="hora">Hora de cita:</label>
-                    <input type="time"  name="hora" id="hora">
+                    <input type="time"  name="hora" id="time">
 
                    
 
@@ -88,8 +97,12 @@
 
                 </form>
             </div>
+            <div class="card-body">
+                Add: <input id="title" />
+                <button id="btnadd" type="buttonOW">Set</button>
+              </div>
             
-                </form>
+                
             </div>
 
         </div>
