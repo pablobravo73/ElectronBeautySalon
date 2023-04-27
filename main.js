@@ -21,6 +21,7 @@ function createWindow () {
 
 app.whenReady().then(() => {
   CreateDataBase()
+  
   ipcMain.handle('setFormData', POSTRegisterForm)
   //ipcMain.handle('toMain', POSTRegisterForm)
   

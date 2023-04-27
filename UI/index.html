@@ -64,19 +64,19 @@
                     <h3>Agendar Cita</h3>
 
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="name">
+                    <input type="text" name="nombre" id="fname" required>
 
                     <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="lastname">
+                    <input type="text" name="apellido" id="lastname" required>
 
                     <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="phone">
+                    <input type="tel" name="telefono" id="phone" required>
 
                     <label for="correo">Correo electrónico:</label>
-                    <input type="email" name="correo" id="email">
+                    <input type="email" name="correo" id="email" required>
 
                     <label for="servicio">Servicio:</label>
-                    <select name="servicio" id="service">
+                    <select name="servicio" id="service" required>
                         <option value="corte">Corte</option>
                         <option value="manicure">Manicure</option>
                         <option value="pedicure">Pedicure</option>
@@ -85,10 +85,10 @@
                         <option value="maquillaje">Maquillaje</option>
 
                     <label for="fecha">Fecha de cita:</label>
-                    <input type="date"   name="fecha" id="date">
+                    <input type="date"   name="fecha" id="date" required>
 
                     <label for="hora">Hora de cita:</label>
-                    <input type="time"  name="hora" id="time">
+                    <input type="time"  name="hora" id="time" required>
 
                    
 
@@ -97,10 +97,7 @@
 
                 </form>
             </div>
-            <div class="card-body">
-                Add: <input id="title" />
-                <button id="btnadd" type="buttonOW">Set</button>
-              </div>
+            
             
                 
             </div>

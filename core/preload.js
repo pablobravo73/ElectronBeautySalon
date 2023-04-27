@@ -18,7 +18,9 @@ const { contextBridge, ipcRenderer } = require('electron');
 // });
 
 contextBridge.exposeInMainWorld('api', {
-  setFormData: (dataForm) => ipcRenderer.invoke('setFormData', dataForm),
+  setFormData: (formDataJSON) => ipcRenderer.invoke('setFormData', formDataJSON),
+
+  
 });
 
 
