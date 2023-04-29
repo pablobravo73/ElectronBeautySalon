@@ -1,28 +1,120 @@
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('mydatabase.db');
 
-exports.POSTRegisterForm = async (e,formDataJSON) => {
-  e.preventDefault()
-  
-  const formData = JSON.parse(formDataJSON)
-  const sqlite3 = require('sqlite3').verbose();
-  const db = new sqlite3.Database('mydatabase.db'); // open the database
-  console.log(formData)
-  db.run('INSERT INTO users (name, lastname, phone, email, appointmentType ,appointmentDate, appointmentTime)  VALUES (?, ?, ?, ?, ?, ?, ?)', [
-    formData.name,
-    formData.lastname,
-    formData.phone,
-    formData.email,
-    formData.appointmentType,
-    formData.appointmentDate,
-    formData.appointmentTime
-  ], function(err) {
-    if (err) {
-      return console.log(err.message);
-    }
-    // get the last insert id
+exports.POSTRegisterForm = async (e, formDataJSON) => {
+  e.preventDefault();
+
+  const formData = JSON.parse(formDataJSON);
+
+  try {
+    await db.run(
+      'INSERT INTO users (name, lastname, phone, email, appointmentType, appointmentDate, appointmentTime) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [
+        formData.name,
+        formData.lastname,
+        formData.phone,
+        formData.email,
+        formData.appointmentType,
+        formData.appointmentDate,
+        formData.appointmentTime,
+      ]
+    );
     console.log(`A row has been inserted with rowid ${this.lastID}`);
-    
+  } catch (error) {
+    console.error(error.message);
   }
-  );
+};
+
+
+exports.searchAppointments = async (event, searchValues) => {
+    if (searchValues) {
+      const sqlite3 = require('sqlite3').verbose();
+      const SearchValues = JSON.parse(searchValues);
+      const db = new sqlite3.Database('mydatabase.db');
+      const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ?`;
+      const searchValue = `%${SearchValues.keyword}%`;
+      console.log(query, searchValue); 
+      db.all(query, [searchValue], (err, rows) => {
+        if (err) {
+          console.error(err.message);
+          event.sender.send('search-appointments-reply', []);
+        } else {
+          console.log(rows);
+          event.sender.send('search-appointments-reply', rows);
+        }
+      });
+    }
+  };
+  
+
+// exports.searchAppointments = async (e, SearchValuesJSON) => {
+//   e.preventDefault();
+//   const Searchvalues = JSON.parse(SearchValuesJSON);
+//   console.log(Searchvalues.keyword);
+// }
+
+
+// exports.searchAppointments = async (SearchValuesJSON) => {
+//   const Searchvalues = JSON.parse(SearchValuesJSON);
+
+//   const db = new sqlite3.Database('mydatabase.db');
+//   const query = `SELECT * FROM users WHERE ${Searchvalues.category} LIKE ?`;
+//   const searchValue = `%${Searchvalues.keyword}%`;
+//   console.log(query, searchValue);
+
+//   try {
+//     const rows = await new Promise((resolve, reject) => {
+//       db.all(query, [searchValue], (err, rows) => {
+//         if (err) {
+//           reject(err);
+//         } else {
+//           resolve(rows);
+//         }
+//       });
+//     });
+
+//     db.close();
+//     return rows;
+//   } catch (error) {
+//     console.error(error.message);
+//     return [];
+//   }
+// };
+
+//quien sabe
+// async function searchAppointments() {
+//   const category = document.getElementById('search-category').value;
+//   const keyword = document.getElementById('search-keyword').value;
+  
+//   const searchResults = document.getElementById('search-results');
+//   searchResults.innerHTML = ''; // Vaciar la tabla de resultados
+
+//   const sqlite3 = require('sqlite3').verbose();
+//   const db = new sqlite3.Database('mydatabase.db');
+
+//   const query = `SELECT * FROM users WHERE ${category} LIKE '%${keyword}%'`;
+//   db.all(query, [], (err, rows) => {
+//     if (err) {
+//       throw err;
+//     }
+//     rows.forEach((row) => {
+//       const tr = document.createElement('tr');
+//       tr.innerHTML = `
+//         <td>${row.name}</td>
+//         <td>${row.lastname}</td>
+//         <td>${row.phone}</td>
+//         <td>${row.email}</td>
+//         <td>${row.appointmentType}</td>
+//         <td>${row.appointmentDate}</td>
+//         <td>${row.appointmentTime}</td>
+//       `;
+//       searchResults.querySelector('tbody').appendChild(tr);
+//     });
+//   });
+//   db.close();
+// }
+
+
 // };
 // //GET
 // exports.GETRegisterForm = async (e) => {
@@ -75,12 +167,10 @@ exports.POSTRegisterForm = async (e,formDataJSON) => {
 //   );
 //   db.close();
 // };
+  
 
 
-    
 
-
-}
 
 
 
