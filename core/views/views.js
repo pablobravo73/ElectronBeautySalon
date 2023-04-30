@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('mydatabase.db');
+const { ipcMain } = require('electron');
 
 exports.POSTRegisterForm = async (e, formDataJSON) => {
   e.preventDefault();
@@ -27,6 +28,7 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
 
 
 exports.searchAppointments = async (event, searchValues) => {
+  const webContents = event.sender;
     if (searchValues) {
       const sqlite3 = require('sqlite3').verbose();
       const SearchValues = JSON.parse(searchValues);
@@ -40,12 +42,51 @@ exports.searchAppointments = async (event, searchValues) => {
           event.sender.send('search-appointments-reply', []);
         } else {
           console.log(rows);
-          event.sender.send('search-appointments-reply', rows);
+          const Rows = JSON.stringify(rows)
+          event.sender.send('search-appointments-reply', Rows);
         }
       });
     }
   };
   
+
+// prueba con promesa
+
+// const { ipcRenderer } = require('electron');
+
+// exports.searchAppointments = async (event, searchValues) => {
+//   const webContents = event.sender;
+//   if (searchValues) {
+//     const sqlite3 = require('sqlite3').verbose();
+//     const SearchValues = JSON.parse(searchValues);
+//     const db = new sqlite3.Database('mydatabase.db');
+//     const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ?`;
+//     const searchValue = `%${SearchValues.keyword}%`;
+//     console.log(query, searchValue); 
+//     db.all(query, [searchValue], (err, rows) => {
+//       if (err) {
+//         console.error(err.message);
+//         event.sender.send('search-appointments-reply', []);
+//       } else {
+//         console.log(rows);
+//         const promise = new Promise((resolve, reject) => {
+//           ipcRenderer.once('search-appointments-reply', (event, rows) => {
+//             if (rows) {
+//               resolve(rows);
+//             } else {
+//               reject('No se recibieron resultados');
+//             }
+//           });
+//         });
+
+//         webContents.send('search-appointments', rows);
+//         return promise;
+//       }
+//     });
+//   }
+// };
+
+
 
 // exports.searchAppointments = async (e, SearchValuesJSON) => {
 //   e.preventDefault();

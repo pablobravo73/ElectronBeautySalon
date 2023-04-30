@@ -1,3 +1,5 @@
+
+
 // POST request to create a new appointment
 const formulario = document.getElementById('apointRegisterForm');
 
@@ -32,25 +34,32 @@ searchButton.addEventListener("click", async(e) => {
   };
   const JSONSearchValues = JSON.stringify(Searchvalues);
   console.log(JSONSearchValues);
-  window.api.searchAppointments(JSONSearchValues);
+  window.api.searchAppointments(JSONSearchValues); 
 });
 
 
-// ipcRenderer.on("search-appointments-response", (event, rows) => {
-//   // borrar el contenido anterior del div de resultados
-//   resultsDiv.innerHTML = "";
 
-//   // crear una lista no ordenada para mostrar los resultados
-//   const resultList = document.createElement("ul");
-//   for (const row of rows) {
-//     const listItem = document.createElement("li");
-//     listItem.textContent = `${row.name}, ${row.email}, ${row.phone}`;
-//     resultList.appendChild(listItem);
-//   }
-//   resultsDiv.appendChild(resultList);
-// });
 
-// // prueba2 termina
+const counter = document.getElementById('search-results')
+
+window.api.searchReply((event, rows) => {
+   const ParseRows = JSON.parse(rows);
+  
+ // borrar el contenido anterior del div de resultados
+  resultsDiv.innerHTML = "";
+
+  // crear una lista no ordenada para mostrar los resultados
+  const resultList = document.createElement("ul");
+  for (const row of parseRows) {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${row.name}, ${row.email}, ${row.phone}`;
+    resultList.appendChild(listItem);
+  }
+  resultsDiv.appendChild(resultList);
+});
+
+
+
 
 
 
