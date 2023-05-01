@@ -75,7 +75,7 @@ window.api.searchReply((event, rows) => {
     }
 
     // Agregamos la tabla completa al DOM del navegador
-    var divResultados = document.querySelector("#search-results");
+    var divResultados = document.getElementById("Response");
     divResultados.innerHTML = "";
     divResultados.appendChild(tabla);
   } catch(error) {
@@ -84,9 +84,48 @@ window.api.searchReply((event, rows) => {
   }
 });
 
+const findDate = document.getElementById('findDate');
+const date = document.getElementById('datefinder');
+
+
+findDate.addEventListener('submitDate', async(e) => {
+  e.preventDefault();
+  const dateData = {
+    appointmentDate: date.value,
+  };
+  const dateJSON = JSON.stringify(dateData);
+  //window.api.setFormData(formDataJSON) 
+  console.log(dateJSON); 
+
+  limpiarFormulario(formulario);
+});
 
 
 
 
+
+// let months = ["January", "Feabruary", "March", "April", "May", "June", "July","Agust","September", "October", "November", "December" ]
+
+// let date = new Date();
+// let dayNum = date.getDay();
+// let day = date.getDate();
+// let month = months[date.getMonth()];
+// let year = date.getFullYear()
+
+
+// let active = document.querySelector(".week li:nth-child("+dayNum+")");
+// active.classList.add('current');
+
+// let h1 = document.createElement('h1');
+// h1.innerHTML = day;
+// active.appendChild(h1);
+
+// let h5 = document.createElement('h5');
+// h5.innerHTML = month;
+// active.appendChild(h5);
+
+// let h3 = document.createElement('h3');
+// h3.innerHTML = year;
+// active.appendChild(h3);
 
 
