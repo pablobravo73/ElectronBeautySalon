@@ -217,6 +217,7 @@ td:first-child {
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0;
+  align-items: start;
 }
 
 .card-appointment {
@@ -243,4 +244,3 @@ td:first-child {
   background-position: right center;
 }
 
-/* prueba */
