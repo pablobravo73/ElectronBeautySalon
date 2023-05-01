@@ -4,6 +4,7 @@ const path = require('path')
 const { CreateDataBase } = require('./core/models/models.js')
 const { POSTRegisterForm} = require('./core/views/CRUD.js')
 const { searchAppointments } = require('./core/views/search.js')
+const { AppointToday } = require('./core/views/silentclock.js')
 
 
 
@@ -27,6 +28,7 @@ app.whenReady().then(() => {
   CreateDataBase()
   ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process
   ipcMain.handle('search-appointments', searchAppointments)
+  ipcMain.handle('today-appoints', AppointToday)
 
   // handle the event from the renderer process
 

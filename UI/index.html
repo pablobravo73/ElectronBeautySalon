@@ -102,17 +102,20 @@
     <div class="appointments-column">
         <div class="appointments-header">
             <h2>Próximas Citas</h2>
+           
+            
             <div class="calendar">
-                <form id="findDate" class="findDate">
-                    <input type="date" id="datefinder" name="date">
-                    <button id="submitDate">Buscar</button>
-                </form>
+                
+                <input type="date" id="findDate" name="date" class="findDate">
+                <button id="submitDate">Buscar</button>
+                
             </div>
         </div>
         <br />
         <div class="card-matrix">
             <div class="card-matrix-container">
-                <div class="card">
+                <div id="insert-today-date"></div>
+                <!-- <div class="card">
                     <img class="card-image" src="./img/user.png" alt="Imagen de la cita">
                     <div class="card-body">
                     <div class="card-content">
@@ -199,7 +202,7 @@
                         </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

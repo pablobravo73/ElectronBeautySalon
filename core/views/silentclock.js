@@ -1,21 +1,22 @@
-exports.searchAppointments = async (event, searchValues) => {
+exports.AppointToday = async (event, JSONDateValues) => {
   const webContents = event.sender;
-    if (searchValues) {
+    if (JSONDateValues) {
       const sqlite3 = require('sqlite3').verbose();
-      const SearchValues = JSON.parse(searchValues);
+      const todayDateValue = JSON.parse(JSONDateValues);
+      console.log(todayDateValue);
       const db = new sqlite3.Database('mydatabase.db');
-      const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentDate DESC LIMIT 1`;
-      const searchValue = `%${SearchValues.keyword}%`;
-      console.log(query, searchValue); 
-      db.all(query, [searchValue], (err, rows) => {
+      const query = `SELECT * FROM users WHERE appointmentDate = '${todayDateValue}' ORDER BY appointmentDate DESC`;
+      console.log(query); 
+      db.all(query, (err, rows) => {
         if (err) {
           console.error(err.message);
-          event.sender.send('search-appointments-reply', []);
+          event.sender.send('today-appoints-reply', []);
         } else {
           console.log(rows);
           const Rows = JSON.stringify(rows)
-          event.sender.send('search-appointments-reply', Rows);
+          event.sender.send('today-appoints-reply', Rows);
         }
       });
     }
   };
+  

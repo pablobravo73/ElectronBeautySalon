@@ -84,48 +84,126 @@ window.api.searchReply((event, rows) => {
   }
 });
 
-const findDate = document.getElementById('findDate');
-const date = document.getElementById('datefinder');
+const DateButton = document.getElementById("submitDate");
+const DateInput = document.getElementById("findDate");
+const cardContainer = document.getElementById("insert-today-date");
 
-
-findDate.addEventListener('submitDate', async(e) => {
+DateButton.addEventListener("click", async (e) => {
   e.preventDefault();
-  const dateData = {
-    appointmentDate: date.value,
-  };
-  const dateJSON = JSON.stringify(dateData);
-  //window.api.setFormData(formDataJSON) 
-  console.log(dateJSON); 
 
-  limpiarFormulario(formulario);
+  const searchDate = DateInput.value;
+
+  const JSONDateValues = JSON.stringify(searchDate);
+  console.log(JSONDateValues);
+  window.api.todayAppoints(JSONDateValues);
+});
+
+window.api.todayAppointsReply((event, rows) => {
+  try {
+    const usersDate = JSON.parse(rows);
+    cardContainer.innerHTML = ""; // Limpiar el contenedor de tarjetas antes de agregar nuevas
+    
+     // Obtener la hora actual y la hora de la cita
+    const now = new Date();
+
+    usersDate.forEach((user) => {
+      const { name, lastname, appointmentType, appointmentTime } = user;
+
+      // Convertir el tiempo de la cita en un número
+      const [hours, minutes] = appointmentTime.split(":");
+      const appointmentHour = parseInt(hours);
+
+      if (appointmentHour >= now.getHours()) {
+        // crear elementos HTML
+        const card = document.createElement("div");
+        const cardImage = document.createElement("img");
+        const cardBody = document.createElement("div");
+        const cardContent = document.createElement("div");
+        const cardName = document.createElement("h3");
+        const cardAppointment = document.createElement("p");
+        const cardTime = document.createElement("p");
+
+        // establecer atributos y contenido
+        card.classList.add("card");
+        cardImage.classList.add("card-image");
+        cardImage.setAttribute("src", "./img/user.png");
+        cardImage.setAttribute("alt", "Imagen de la cita");
+        cardName.classList.add("card-name");
+        cardName.textContent = name+ " " +lastname;
+        cardAppointment.classList.add("card-appointment");
+        cardAppointment.textContent = appointmentType;
+        cardTime.classList.add("card-time");
+        cardTime.textContent = appointmentTime;
+
+        // agregar elementos al DOM
+        cardContent.appendChild(cardName);
+        cardContent.appendChild(cardAppointment);
+        cardContent.appendChild(cardTime);
+        cardBody.appendChild(cardContent);
+        card.appendChild(cardImage);
+        card.appendChild(cardBody);
+        cardContainer.appendChild(card);
+      } else {
+        console.log("No hay citas disponibles");
+      }
+    });
+    if (cardContainer.innerHTML === "") {
+      const noAppointments = document.createElement("h2");
+      noAppointments.textContent = "No se han agendado citas aún";
+      cardContainer.appendChild(noAppointments);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 
 
+      
 
+     
+      
 
-// let months = ["January", "Feabruary", "March", "April", "May", "June", "July","Agust","September", "October", "November", "December" ]
+//       // Verificar si la hora de la cita es mayor o igual a la hora actual
+//       if (appointmentDateTime >= now) {
+//         // crear elementos HTML
+//         const card = document.createElement("div");
+//         const cardImage = document.createElement("img");
+//         const cardBody = document.createElement("div");
+//         const cardContent = document.createElement("div");
+//         const cardName = document.createElement("h3");
+//         const cardAppointment = document.createElement("p");
+//         const cardTime = document.createElement("p");
 
-// let date = new Date();
-// let dayNum = date.getDay();
-// let day = date.getDate();
-// let month = months[date.getMonth()];
-// let year = date.getFullYear()
+//         // establecer atributos y contenido
+//         card.classList.add("card");
+//         cardImage.classList.add("card-image");
+//         cardImage.setAttribute("src", "./img/user.png");
+//         cardImage.setAttribute("alt", "Imagen de la cita");
+//         cardName.classList.add("card-name");
+//         cardName.textContent = name+ " " +lastname;
+//         cardAppointment.classList.add("card-appointment");
+//         cardAppointment.textContent = appointmentType;
+//         cardTime.classList.add("card-time");
+//         cardTime.textContent = appointmentTime;
 
-
-// let active = document.querySelector(".week li:nth-child("+dayNum+")");
-// active.classList.add('current');
-
-// let h1 = document.createElement('h1');
-// h1.innerHTML = day;
-// active.appendChild(h1);
-
-// let h5 = document.createElement('h5');
-// h5.innerHTML = month;
-// active.appendChild(h5);
-
-// let h3 = document.createElement('h3');
-// h3.innerHTML = year;
-// active.appendChild(h3);
-
-
+//         // añadir elementos al contenedor
+//         cardContainer.appendChild(card);
+//         card.appendChild(cardImage);
+//         card.appendChild(cardBody);
+//         cardBody.appendChild(cardContent);
+//         cardContent.appendChild(cardName);
+//         cardContent.appendChild(cardAppointment);
+//         cardContent.appendChild(cardTime);
+//       }
+//     });
+//     if (cardContainer.innerHTML === "") {
+//       const noResults = document.createElement("p");
+//       noResults.textContent = "No hay citas disponibles para este día.";
+//       cardContainer.appendChild(noResults);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     // Aquí puedes agregar un mensaje de error o cualquier otra acción que consideres necesaria.
+//   }
+// });
