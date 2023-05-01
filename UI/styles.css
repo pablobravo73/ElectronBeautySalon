@@ -126,6 +126,14 @@
   text-align: center;
 }
 
+.Response {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+.tableclass {
+  border: #000000 1px solid;
+}
+
 thead tr {
   background-color: #333;
   color: #fff;
@@ -135,6 +143,7 @@ thead tr {
 thead th {
   padding: 10px;
 }
+
 
 /* Estilos para las filas impares */
 tbody tr:nth-child(odd) {
@@ -153,12 +162,6 @@ td:first-child {
   
 }
 
-/* .card-matrix {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll;;
-} */
 
 .card-matrix {
   display: flex;
@@ -228,19 +231,5 @@ td:first-child {
 .card-time {
   font-size: 1rem;
   margin: 0;
-}
-
-.findDate input[type="date"] {
-  appearance: none;
-  -webkit-appearance: none;
-  display: inline-block;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  background-color: #fff;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
-  background-repeat: no-repeat;
-  background-position: right center;
 }
 

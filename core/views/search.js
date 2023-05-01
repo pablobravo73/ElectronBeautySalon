@@ -4,7 +4,7 @@ exports.searchAppointments = async (event, searchValues) => {
         const sqlite3 = require('sqlite3').verbose();
         const SearchValues = JSON.parse(searchValues);
         const db = new sqlite3.Database('mydatabase.db');
-        const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentDate DESC LIMIT 1`;
+        const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentDate AND appointmentTime DESC`;
         const searchValue = `%${SearchValues.keyword}%`;
         console.log(query, searchValue); 
         db.all(query, [searchValue], (err, rows) => {

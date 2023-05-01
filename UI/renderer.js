@@ -52,12 +52,12 @@ window.api.searchReply((event, rows) => {
 
     // Creamos una tabla en memoria
     var tabla = document.createElement('table');
+    tabla.classList.add('tableclass');
 
     // Agregamos la fila de encabezado
     var encabezado = tabla.createTHead();
     var filaEncabezado = encabezado.insertRow();
     filaEncabezado.insertCell().innerHTML = "Nombre";
-    filaEncabezado.insertCell().innerHTML = "Apellido";
     filaEncabezado.insertCell().innerHTML = "Teléfono";
     filaEncabezado.insertCell().innerHTML = "Email";
     filaEncabezado.insertCell().innerHTML = "Tipo de cita";
@@ -68,8 +68,7 @@ window.api.searchReply((event, rows) => {
     var cuerpo = tabla.createTBody();
     for (var i = 0; i < citas.length; i++) {
       var fila = cuerpo.insertRow();
-      fila.insertCell().innerHTML = citas[i].name;
-      fila.insertCell().innerHTML = citas[i].lastname;
+      fila.insertCell().innerHTML = citas[i].name + " " + citas[i].lastname;
       fila.insertCell().innerHTML = citas[i].phone;
       fila.insertCell().innerHTML = citas[i].email;
       fila.insertCell().innerHTML = citas[i].appointmentType;
