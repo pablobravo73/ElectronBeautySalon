@@ -13,7 +13,7 @@ db.run(`
     phone INTEGER,
     email TEXT,
     appointmentType TEXT,
-    appointmentDate TEXT,
+    appointmentDate DATE,
     appointmentTime TIME
     )`)
 }

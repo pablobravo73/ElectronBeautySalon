@@ -22,52 +22,12 @@ function createWindow () {
   mainWindow.webContents.openDevTools()
 }
 
-
-//mainWindow.webContents.send("algoPasa", pruebaMain)
-
-
 app.whenReady().then(() => {
   CreateDataBase()
-  // const result = searchAppointments()
   ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process
   ipcMain.handle('search-appointments', searchAppointments)
 
   // handle the event from the renderer process
-
- 
-  
-  
-
- 
-  
-  // ipcMain.handle('search-appointments', (event, searchValues) => {
-  //   if (searchValues) {
-  //     const sqlite3 = require('sqlite3').verbose();
-  //     const SearchValues = JSON.parse(searchValues);
-  //     const db = new sqlite3.Database('mydatabase.db');
-  //     const query = `SELECT * FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentDate DESC`;
-  //     const searchValue = `%${SearchValues.keyword}%`;
-  //     console.log(query, searchValue); 
-  //     db.all(query, [searchValue], (err, rows) => {
-  //       if (err) {
-  //         console.error(err.message);
-  //         event.sender.send('search-appointments-reply', []);
-  //         mainWindow.webContents.send("algoPasa", pruebaMain)
-  //       } else {
-  //         console.log(rows);
-  //         webContents.send('search-appointments-reply', rows);
-          
-            
-          
-          
-
-          
-  //       }
-  //     });
-  //   }  
-  // });
-  
- 
 
   ipcMain.on('row-value', (_event, value) => { // 
     console.log(value) // will print value to Node console

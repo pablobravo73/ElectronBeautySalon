@@ -10,39 +10,54 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="nav-bar">
+<div class="main-container">
+    <div class="navbar">
+        <div class="nav-header" ></div>
+            <h2>Salon de Belleza</h2>
+        <div class="nav-body">
             <ul>
                 <li>
-                    <img src="./img/home.png" alt="home" type="icon" title="home" />
-                    <a href="#"></a>
-                </li>
+                    <img src="./img/home.png">
+                    <a href="#">Main</a></li>
+                <li><img src="./img/calendar.png">
+                    <a href="#">Calendario</a></li>
                 <li>
-                    <img src="./img/calendar.png" alt="calendar" type="icon" />
-                    <a href="#"></a>
-                </li>
+                    <img src="./img/inventory.png">
+                    <a href="#">Agendar Citas</a></li>
                 <li>
-                    <img src="./img/people.png" alt="people" type="icon" />
-                    <a href="#"></a>
-                </li>
-                <li>
-                    <img src="./img/money.png" alt="money" type="icon" />
-                    <a href="#"></a>
-                </li>
-                <li>
-                    <img src="./img/inventory.png" alt="inventory" type="icon" />
-                    <a href="#"></a>
-                </li>
-            </ul>
+                    <img src="./img/money.png">
+                    <a href="#">ventas</a></li>
+                <li><img src="./img/inventory.png">
+                    <a href="#">Inventario</a></li>
+            </l>
         </div>
+    </div>
+    <div class="content">
+        <div class="content-header">
+            <div class="search-bar">
+                <!-- Buscador estándar para las categorías de captura -->
+                <h2>Buscar citas</h2>
+                
+                <label for="search-category">Categoría:</label>
+                <select id="search-category" name="search-category">
+                    <option value="name">Nombre</option>
+                    <option value="lastname">Apellido</option>
+                    <option value="phone">Teléfono</option>
+                    <option value="email">Email</option>
+                    <option value="appointmentType">Tipo de cita</option>
+                    <option value="appointmentDate">Fecha de la cita</option>
+                    <option value="appointmentTime">Hora de la cita</option>
+                </select>
 
-        <div class="container-body">
-            <div class="header">
-                <div class="header-text">
-                    <p>Salon de Belleza</p>
-                </div>
+                <label for="search-keyword">Palabra clave:</label>
+                <input type="search" id="search-keyword" name="search-keyword">
+
+                <button id="search-button">Buscar</button>
+
             </div>
-            <div class="element">
+        </div>
+        <div class="content-body">
+            <div class="content-form">
                 <form id="apointRegisterForm" class="container-form">
                     <h3>Agendar Cita</h3>
                     <label for="nombre">Nombre:</label>
@@ -75,64 +90,27 @@
                     <label for="hora">Hora de cita:</label>
                     <input type="time" name="hora" id="time" required />
 
-                    <input type="submit" id="submit" value="Submit" />
+                    <input type="submit" id="submit" value="Agendar" />
                 </form>
-                <div>
-                    <div class="search-bar">
-                        <!-- Buscador estándar para las categorías de captura -->
-                        <h2>Buscar citas</h2>
-                        
-                        <label for="search-category">Categoría:</label>
-                        <select id="search-category" name="search-category">
-                            <option value="name">Nombre</option>
-                            <option value="lastname">Apellido</option>
-                            <option value="phone">Teléfono</option>
-                            <option value="email">Email</option>
-                            <option value="appointmentType">Tipo de cita</option>
-                            <option value="appointmentDate">Fecha de la cita</option>
-                            <option value="appointmentTime">Hora de la cita</option>
-                        </select>
-
-                        <label for="search-keyword">Palabra clave:</label>
-                        <input type="search" id="search-keyword" name="search-keyword">
-
-                        <button id="search-button">Buscar</button>
-
-                    </div>
-                    <div class="search-results">
-                        <h2>Resultados de la búsqueda</h2>
-                        <table id="search-results">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>  
-                                    <th>Apellido</th>
-                                    <th>Teléfono</th>
-                                    <th>Email</th>
-                                    <th>Tipo de cita</th>
-                                    <th>Fecha de la cita</th>
-                                    <th>Hora de la cita</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Aquí se insertan los resultados de la búsqueda -->
-                                <td>Pablo</td>
-                                <td>Bravo</td>
-                                <td>123456789</td>
-                                <td>pablo@email.com</td>
-                                <td>Corte</td>
-                                <td>28/04/23</td>
-                                <td>17:30</td>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="change">
-                        Checale bien
-                    </div>
-
-                </div>
+            </div>
+            <div class="searchResponse" id="search-results">
+                <h3>Respuesta</h3>
+                <p id="searchResponse"></p>
             </div>
         </div>
-        <script src="./renderer.js"></script>
+    </div>
+    <div class="appointments-column">
+        <div class="appointments-header">
+            <h2>Próximas Citas</h2>
+        <div class="calendar">
+
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+<script src="./renderer.js"></script>
 </body>
 
 </html
