@@ -57,7 +57,7 @@ window.api.searchReply((event, rows) => {
   try {
     const citas = JSON.parse(rows);
     if (citas.length === 0) {
-      resultsDiv.innerHTML = "No hay resultados";
+      alert("No hay resultados");
     } else {    
       // Creamos una tabla en memoria
       var tabla = document.createElement('table');

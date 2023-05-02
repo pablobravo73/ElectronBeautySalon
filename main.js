@@ -12,6 +12,9 @@ const { checkAppointments } = require('./core/backend/silentClock.js');
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
+    width: 1920,
+    height: 1020,
+    icon: path.join(__dirname, './UI/img/crown.png'),
     webPreferences: {
       preload: path.join(__dirname, './core/preload.js')
     }
@@ -21,15 +24,15 @@ function createWindow () {
   
   
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
-  //setInterval(checkAppointments, 300000, console.log('checking appointments'));
   setInterval(() => {
     checkAppointments();
     console.log('checking appointments');
   }, 60000);
+  
   CreateDataBase();
   
   ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process

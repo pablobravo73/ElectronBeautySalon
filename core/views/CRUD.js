@@ -1,5 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('mydatabase.db');
+const path = require('path');
+const dbPath = path.join(__dirname, '../../database/mydatabase.db');
+const db = new sqlite3.Database(dbPath);
 const { ipcMain } = require('electron');
 
 exports.POSTRegisterForm = async (e, formDataJSON) => {
@@ -22,11 +24,12 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
       ]
     );
     console.log(`A row has been inserted with rowid ${this.lastID}`);
-    
-    
   } catch (error) {
     console.error(error.message);
   }
+
+  // Close the database connection
+  db.close();
 };
 
 
