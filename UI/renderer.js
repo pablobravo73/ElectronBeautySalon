@@ -1,8 +1,9 @@
-
-
-
 // POST request to create a new appointment
 const formulario = document.getElementById('apointRegisterForm');
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function limpiarFormulario(formulario) {
   formulario.reset();
@@ -11,8 +12,8 @@ function limpiarFormulario(formulario) {
 formulario.addEventListener('submit', async(e) => {
   e.preventDefault();
   const formData = {
-    name: fname.value,
-    lastname: lastname.value,
+    name: capitalizeFirstLetter(fname.value),
+    lastname: capitalizeFirstLetter(lastname.value),
     phone: phone.value,
     email: email.value,
     appointmentType: service.value,
@@ -45,82 +46,98 @@ searchButton.addEventListener("click", async(e) => {
 
 
 
-// Create a table with the results of the search
+
+// Manejador de eventos para la respuesta de búsqueda
+
+
+// Manejador de eventos para el botón de búsqueda de citas por fecha
+
+// Manejador de eventos para la respuesta de búsqueda
 window.api.searchReply((event, rows) => {
   try {
     const citas = JSON.parse(rows);
+    if (citas.length === 0) {
+      resultsDiv.innerHTML = "No hay resultados";
+    } else {    
+      // Creamos una tabla en memoria
+      var tabla = document.createElement('table');
+      tabla.classList.add('tableclass');
 
-    // Creamos una tabla en memoria
-    var tabla = document.createElement('table');
-    tabla.classList.add('tableclass');
+      // Agregamos la fila de encabezado
+      var encabezado = tabla.createTHead();
+      var filaEncabezado = encabezado.insertRow();
+      filaEncabezado.insertCell().innerHTML = "Nombre";
+      filaEncabezado.insertCell().innerHTML = "Teléfono";
+      filaEncabezado.insertCell().innerHTML = "Email";
+      filaEncabezado.insertCell().innerHTML = "Tipo de cita";
+      filaEncabezado.insertCell().innerHTML = "Fecha de la cita";
+      filaEncabezado.insertCell().innerHTML = "Hora de la cita";
 
-    // Agregamos la fila de encabezado
-    var encabezado = tabla.createTHead();
-    var filaEncabezado = encabezado.insertRow();
-    filaEncabezado.insertCell().innerHTML = "Nombre";
-    filaEncabezado.insertCell().innerHTML = "Teléfono";
-    filaEncabezado.insertCell().innerHTML = "Email";
-    filaEncabezado.insertCell().innerHTML = "Tipo de cita";
-    filaEncabezado.insertCell().innerHTML = "Fecha de la cita";
-    filaEncabezado.insertCell().innerHTML = "Hora de la cita";
+      // Agregamos las filas de datos
+      var cuerpo = tabla.createTBody();
+      for (var i = 0; i < citas.length; i++) {
+        var fila = cuerpo.insertRow();
+        fila.insertCell().innerHTML = citas[i].name + " " + citas[i].lastname;
+        fila.insertCell().innerHTML = citas[i].phone;
+        fila.insertCell().innerHTML = citas[i].email;
+        fila.insertCell().innerHTML = citas[i].appointmentType;
+        fila.insertCell().innerHTML = citas[i].appointmentDate;
+        fila.insertCell().innerHTML = citas[i].appointmentTime;
+      }
 
-    // Agregamos las filas de datos
-    var cuerpo = tabla.createTBody();
-    for (var i = 0; i < citas.length; i++) {
-      var fila = cuerpo.insertRow();
-      fila.insertCell().innerHTML = citas[i].name + " " + citas[i].lastname;
-      fila.insertCell().innerHTML = citas[i].phone;
-      fila.insertCell().innerHTML = citas[i].email;
-      fila.insertCell().innerHTML = citas[i].appointmentType;
-      fila.insertCell().innerHTML = citas[i].appointmentDate;
-      fila.insertCell().innerHTML = citas[i].appointmentTime;
+      // Agregamos la tabla completa al DOM del navegador
+      var divResultados = document.getElementById("Response");
+      divResultados.innerHTML = "";
+      divResultados.appendChild(tabla);
     }
 
-    // Agregamos la tabla completa al DOM del navegador
-    var divResultados = document.getElementById("Response");
-    divResultados.innerHTML = "";
-    divResultados.appendChild(tabla);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     // Aquí puedes agregar un mensaje de error o cualquier otra acción que consideres necesaria.
   }
 });
 
+// Manejador de eventos para el botón de búsqueda de citas por fecha
 const DateButton = document.getElementById("submitDate");
 const DateInput = document.getElementById("findDate");
-const cardContainer = document.getElementById("insert-today-date");
 
 DateButton.addEventListener("click", async (e) => {
   e.preventDefault();
 
   const searchDate = DateInput.value;
 
-  const JSONDateValues = JSON.stringify(searchDate);
-  console.log(JSONDateValues);
-  window.api.todayAppoints(JSONDateValues);
+  // Convertir la fecha a JSON
+  const JSONDateValue = JSON.stringify(searchDate);
+
+  // Llamar a la API con la fecha de búsqueda
+  window.api.todayAppoints(JSONDateValue);
 });
 
-//const moment = require("moment");
+
+
+
+
+
+
 
 window.api.todayAppointsReply((event, rows) => {
+  const cardContainer = document.getElementById("insert-today-date");
   try {
     const usersDate = JSON.parse(rows);
     cardContainer.innerHTML = ""; // Limpiar el contenedor de tarjetas antes de agregar nuevas
     
-     // Obtener el tiempo actual y la hora de la cita en milisegundos Unix
+    // Obtener el tiempo actual en milisegundos Unix
     const nowUnix = new Date().getTime();
 
     usersDate.forEach((user) => {
-      const { name, lastname, appointmentType, appointmentTime } = user;
+      const { name, lastname, appointmentType, appointmentTime, appointmentDate } = user;
 
-      // Convertir la hora de la cita en milisegundos Unix
-      const [hours, minutes] = appointmentTime.split(":");
-      const appointmentTimeObj = new Date();
-      appointmentTimeObj.setHours(parseInt(hours));
-      appointmentTimeObj.setMinutes(parseInt(minutes));
-      const appointmentTimeUnix = appointmentTimeObj.getTime();
+      // Convertir la fecha y hora de la cita en milisegundos Unix
+      const appointmentDateTime = appointmentDate + ' ' + appointmentTime;
+      const appointmentDateTimeUnix = new Date(appointmentDateTime).getTime();
+      console.log(appointmentDateTimeUnix);
 
-      if (appointmentTimeUnix >= nowUnix) {
+      if (appointmentDateTimeUnix >= nowUnix) {
         // crear elementos HTML
         const card = document.createElement("div");
         const cardImage = document.createElement("img");
@@ -163,3 +180,4 @@ window.api.todayAppointsReply((event, rows) => {
     console.error(error);
   }
 });
+

@@ -5,7 +5,7 @@ exports.AppointToday = async (event, JSONDateValues) => {
       const todayDateValue = JSON.parse(JSONDateValues);
       console.log(todayDateValue);
       const db = new sqlite3.Database('mydatabase.db');
-      const query = `SELECT * FROM users WHERE appointmentDate LIKE '${todayDateValue}' ORDER BY appointmentDate ASC`;
+      const query = `SELECT * FROM users WHERE appointmentDate LIKE '${todayDateValue}' ORDER BY  appointmentTime AND appointmentDate ASC`;
       console.log(query); 
       db.all(query, (err, rows) => {
         if (err) {

@@ -1,71 +1,52 @@
-// función para verificar si hay una cita programada para la hora actual o siguiente
+const { dialog } = require('electron');
+const sqlite3 = require('sqlite3').verbose();
+
+/**
+ * Función que revisa y emite alertas de citas
+ */
 async function checkAppointments() {
-
-  const moment = require("moment");
-  const sqlite3 = require('sqlite3').verbose();
-  const util = require('util');
-  const { dialog, BrowserWindow } = require('electron');
-
-  const now = moment().unix();
-  const currentDay = moment().day(); // o cualquier método para obtener el día actual
-
-  // abre la conexión a la base de datos
+  // Abrir la conexión a la base de datos
   const db = new sqlite3.Database('mydatabase.db');
-  const allAsync = util.promisify(sqlite3.Database.prototype.all);
 
-  try {
-    // consulta la base de datos para obtener las citas programadas a partir de la hora actual
-    const rows = await allAsync.call(db, `SELECT *, strftime('%s', appointmentTime, 'localtime') AS appointmentTimeUnix FROM users WHERE appointmentDate = ? AND appointmentTime >= time('now', 'localtime')`, [moment().format('YYYY-MM-DD')]);
+  // Obtener la cita más cercana
+  const now = Math.floor(Date.now() / 1000); // tiempo actual en Unix
+  const sql = `SELECT * FROM users WHERE appointmentTime - ${now} <= 60 AND attendance = 0 ORDER BY appointmentTime ASC LIMIT 1`;
+  const appointment = await new Promise((resolve, reject) => {
+    db.get(sql, (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
 
-    // ordena las citas por hora y minutos
-    rows.sort((a, b) => {
-      const aTimeUnix = moment.unix(a.appointmentTimeUnix).unix();
-      const bTimeUnix = moment.unix(b.appointmentTimeUnix).unix();
-      return aTimeUnix - bTimeUnix;
+  // Si se encontró una cita cercana, emitir una alerta
+  if (appointment) {
+    const message = `La cita para ${appointment.name} ${appointment.lastname} está programada para el ${appointment.appointmentDate} a las ${appointment.appointmentTime}.\n¡Es hora de su cita!`;
+
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Cita programada',
+      message,
+      buttons: ['OK']
     });
 
-    // verifica si hay una cita programada
-    if (rows.length > 0) {
-      // establece el tiempo de espera hasta la cita más próxima
-      const nextAppointmentTime = moment.unix(rows[0].appointmentTimeUnix).unix();
-      let waitTime = (nextAppointmentTime - now) //* 1000; 
-      if (waitTime < 0) {
-        waitTime = 0;
+    // Aquí puedes agregar cualquier lógica para enviar una alerta por correo electrónico, SMS, etc.
+    // ...
+
+    // Marcar la cita como atendida en la base de datos
+    const updateSql = `UPDATE users SET attendance = 1 WHERE id = ${appointment.id}`;
+    db.run(updateSql, [], function(err) {
+      if (err) console.error(err);
+      else {
+        console.log(`La cita para ${appointment.name} ${appointment.lastname} ha sido marcada como atendida.`);
+
+        // Pasar a la siguiente cita
+        checkAppointments();
       }
-
-      // muestra una alerta cuando sea el momento de la cita
-      let alertBox;
-      const mainWindow = BrowserWindow.getAllWindows()[0];
-
-      setTimeout(async () => {
-        try {
-          alertBox = await dialog.showMessageBox(mainWindow, {
-            type: 'info',
-            title: 'Cita',
-            message: `Tiene una cita programada en este momento.`,
-            //buttons: ['Ok']
-          });
-          // vuelve a llamar a la función de verificación de citas
-          await checkAppointments();
-        } catch (err) {
-          console.error(err);
-        }
-      }, waitTime);
-
-      // cierra la alerta al cerrar la ventana principal
-      mainWindow.on('closed', () => {
-        if (alertBox) {
-          alertBox.response = 0;
-        }
-      });
-    }
-  } catch (err) {
-    console.error(err);
-  } finally {
-    // cierra la conexión a la base de datos
+    });
+  } else {
+    // No hay citas cercanas, cerrar la conexión a la base de datos
     db.close();
   }
 }
 
-// Exporta la función checkAppointments
 module.exports = { checkAppointments };

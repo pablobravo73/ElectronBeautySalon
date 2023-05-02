@@ -39,7 +39,7 @@ app.whenReady().then(() => {
   // handle the event from the renderer process
 
   ipcMain.on('row-value', (_event, value) => { // 
-    console.log(value) // will print value to Node console
+    
   })
 
   

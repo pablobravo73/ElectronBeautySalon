@@ -9,7 +9,7 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
 
   try {
     await db.run(
-      'INSERT INTO users (name, lastname, phone, email, appointmentType, appointmentDate, appointmentTime) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO users (name, lastname, phone, email, appointmentType, appointmentDate, appointmentTime, attendance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       [
         formData.name,
         formData.lastname,
@@ -18,6 +18,7 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
         formData.appointmentType,
         formData.appointmentDate,
         formData.appointmentTime,
+        0
       ]
     );
     console.log(`A row has been inserted with rowid ${this.lastID}`);
