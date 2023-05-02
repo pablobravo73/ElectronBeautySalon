@@ -1,12 +1,6 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-const dbPath = path.join(__dirname, '../../database/mydatabase.db');
-const db = new sqlite3.Database(dbPath);
-const { ipcMain } = require('electron');
-
 exports.POSTRegisterForm = async (e, formDataJSON) => {
   e.preventDefault();
-  
+
   const formData = JSON.parse(formDataJSON);
 
   try {
@@ -28,9 +22,15 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
     console.error(error.message);
   }
 
-  // Close the database connection
-  db.close();
+  // No cerrar la conexión a la base de datos aquí para que siga abierta y se pueda acceder a los datos guardados
 };
+//De esta manera, la base de datos SQLite se almacenará en la carpeta de datos de la aplicación y se creará la tabla de usuarios solo si el archivo de base de datos no existe. Además, no se cierra la conexión a la base de datos después de insertar los datos para que se pueda acceder a los datos guardados.
+
+
+
+
+
+
 
 
 

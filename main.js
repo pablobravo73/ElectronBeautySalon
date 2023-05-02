@@ -2,10 +2,12 @@ const { app, BrowserWindow, ipcMain, webContents } = require('electron')
 const path = require('path')
 const util = require('util');
 const sqlite3 = require('sqlite3').verbose();
-const { CreateDataBase } = require('./core/models/models.js')
-const { POSTRegisterForm} = require('./core/views/CRUD.js')
-const { searchAppointments } = require('./core/views/search.js')
-const { AppointToday } = require('./core/views/sideNextDate.js')
+// const { CreateDataBase } = require('./core/models/models.js')
+// const { POSTRegisterForm} = require('./core/views/CRUD.js')
+// const { searchAppointments } = require('./core/views/search.js')
+// const { AppointToday } = require('./core/views/sideNextDate.js')
+
+const { CreateDataBase, POSTRegisterForm, searchAppointments, AppointToday } = require('./core/models/models.js')
 
 const { checkAppointments } = require('./core/backend/silentClock.js');
 
