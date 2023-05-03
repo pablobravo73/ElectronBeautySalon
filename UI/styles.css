@@ -88,6 +88,38 @@
   margin: 0px;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 20px 5px 5px 5px;
+  margin: 0px;
+}
+
+.btn-danger {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 3px;
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.download-button {
+  background-color: green;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 3px;
+  margin: 0 5px 0 5px;
+  padding: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .searchResponse {
   height: 647px;
 }

@@ -45,13 +45,6 @@ searchButton.addEventListener("click", async(e) => {
 
 
 
-
-
-// Manejador de eventos para la respuesta de búsqueda
-
-
-// Manejador de eventos para el botón de búsqueda de citas por fecha
-
 // Manejador de eventos para la respuesta de búsqueda
 window.api.searchReply((event, rows) => {
   try {
@@ -60,12 +53,16 @@ window.api.searchReply((event, rows) => {
       alert("No hay resultados");
     } else {    
       // Creamos una tabla en memoria
-      var tabla = document.createElement('table');
+      let tabla = document.createElement('table');
       tabla.classList.add('tableclass');
+      
+     
+
+
 
       // Agregamos la fila de encabezado
-      var encabezado = tabla.createTHead();
-      var filaEncabezado = encabezado.insertRow();
+      let encabezado = tabla.createTHead();
+      let filaEncabezado = encabezado.insertRow();
       filaEncabezado.insertCell().innerHTML = "Nombre";
       filaEncabezado.insertCell().innerHTML = "Teléfono";
       filaEncabezado.insertCell().innerHTML = "Email";
@@ -74,7 +71,7 @@ window.api.searchReply((event, rows) => {
       filaEncabezado.insertCell().innerHTML = "Hora de la cita";
 
       // Agregamos las filas de datos
-      var cuerpo = tabla.createTBody();
+      let cuerpo = tabla.createTBody();
       for (var i = 0; i < citas.length; i++) {
         var fila = cuerpo.insertRow();
         fila.insertCell().innerHTML = citas[i].name + " " + citas[i].lastname;
@@ -86,14 +83,41 @@ window.api.searchReply((event, rows) => {
       }
 
       // Agregamos la tabla completa al DOM del navegador
-      var divResultados = document.getElementById("Response");
+      let divResultados = document.getElementById("Response");
+      let divButton = document.getElementById("insert-button");
+      divButton.innerHTML = "";
       divResultados.innerHTML = "";
       divResultados.appendChild(tabla);
+      divButton.innerHTML = `
+      <br />
+      <div class = "button-container">
+        <button id="download-button" class="download-button" icon="./img/money.png">Descargar</button>
+        <button id="delete-button" class="btn-danger">cerrar</button>       
+      </div>
+      `;
+      // Manejador de eventos para el botón de descarga
+      const downloadButton = document.getElementById("download-button");
+      downloadButton.addEventListener("click", async(e) => {
+        const JSONSearchValues = JSON.stringify(citas);
+        window.api.downloadAppointments(JSONSearchValues);
+      });
+
+
+
+      const deleteButton = document.getElementById("delete-button");
+      deleteButton.addEventListener("click", async(e) => {
+        
+        divResultados.innerHTML = "";
+        divButton.innerHTML = "";
+      });
+
+
+
     }
 
   } catch (error) {
     console.error(error);
-    // Aquí puedes agregar un mensaje de error o cualquier otra acción que consideres necesaria.
+    
   }
 });
 
@@ -106,12 +130,27 @@ DateButton.addEventListener("click", async (e) => {
 
   const searchDate = DateInput.value;
 
-  // Convertir la fecha a JSON
+  
   const JSONDateValue = JSON.stringify(searchDate);
 
-  // Llamar a la API con la fecha de búsqueda
   window.api.todayAppoints(JSONDateValue);
 });
+
+window.api.downloadAppointmentsReply((event, rows) => {
+  
+  const usersDate = JSON.parse(rows);
+  console.log(rows);
+  const csv = usersDate.map((row) => Object.values(row));
+  csv.unshift(Object.keys(usersDate[0]));
+  const csvArray = csv.join("\n");
+  const a = document.createElement("a");
+  a.href = "data:attachment/csv," + encodeURIComponent(csvArray);
+  a.target = "_blank";
+  a.download = "citas.csv";
+  document.body.appendChild(a);
+  a.click();
+});
+
 
 
 

@@ -70,7 +70,7 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
     console.error(error.message);
   }
 
-  // No cerrar la conexión a la base de datos aquí para que siga abierta y se pueda acceder a los datos guardados
+  
 };
 exports.searchAppointments = async (event, searchValues) => {
   
@@ -126,8 +126,7 @@ exports.checkAppointments = async ()=> {
           buttons: ['OK']
         });
 
-        // Aquí puedes agregar cualquier lógica para enviar una alerta por correo electrónico, SMS, etc.
-        // ...
+        
 
         // Marcar la cita como atendida en la base de datos
         const updateSql = `UPDATE users SET attendance = 1 WHERE id = ${appointment.id}`;
@@ -143,7 +142,7 @@ exports.checkAppointments = async ()=> {
       }, timeToAppointment * 1000); // convertir la diferencia de segundos a milisegundos para setTimeout()
 
     } else {
-      // No hay citas cercanas, cerrar la conexión a la base de datos
+      
     }
   } catch (error) {
     console.error(error);
@@ -169,11 +168,33 @@ exports.AppointToday = async (event, JSONDateValues) => {
         const Rows = JSON.stringify(rows)
         event.sender.send('today-appoints-reply', Rows);
       }
-      // Close the database connection after the search operation is finished
       console.log('prueba.');
     });
   }
 };
+
+exports.DownLoadAppointments = async (event, JSONSearchValues) => {
+  const webContents = event.sender;
+  if (JSONSearchValues) {
+    const SearchValues = JSON.parse(JSONSearchValues);
+    
+    const query = `SELECT * FROM users WHERE appointmentDate BETWEEN '${SearchValues.startDate}' AND '${SearchValues.endDate}' ORDER BY  appointmentDate ASC`;
+    
+    db.all(query, (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        event.sender.send('download-appointments-reply', []);
+      } else {
+        
+        const Rows = JSON.stringify(JSONSearchValues)
+        
+        event.sender.send('download-appointments-reply', Rows);
+      }
+      
+    });
+  }
+}
+
 
 
 

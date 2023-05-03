@@ -35,8 +35,6 @@
 //           buttons: ['OK']
 //         });
 
-//         // Aquí puedes agregar cualquier lógica para enviar una alerta por correo electrónico, SMS, etc.
-//         // ...
 
 //         // Marcar la cita como atendida en la base de datos
 //         const updateSql = `UPDATE users SET attendance = 1 WHERE id = ${appointment.id}`;

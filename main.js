@@ -14,6 +14,7 @@ const { CreateDataBase,
   searchAppointments, 
   AppointToday, 
   checkAppointments,
+  DownLoadAppointments
    } = require('./core/models/models.js')
 
 // const { checkAppointments } = require('./core/backend/silentClock.js');
@@ -48,15 +49,10 @@ app.whenReady().then(() => {
   ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process
   ipcMain.handle('search-appointments', searchAppointments)
   ipcMain.handle('today-appoints', AppointToday)
-
-  // handle the event from the renderer process
-
-  ipcMain.on('row-value', (_event, value) => { // 
-    
-  })
+  ipcMain.handle('download-appointments', DownLoadAppointments)
 
   
-  
+
   
 
   createWindow()
