@@ -3,31 +3,41 @@ const { app, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-
 // Obtener la ruta de la carpeta de datos de la aplicación
 const userDataPath = app.getPath('userData');
-const dbPath = path.join(userDataPath, 'mydatabase.db');
+const databaseFolder = path.join(userDataPath, 'database');
+const dbPath = path.join(databaseFolder, 'mydatabase.db');
+
+// Imprimir la ruta de la carpeta de datos
+console.log(`La carpeta de datos esta en: ${userDataPath}`);
+
+// Verificar si la carpeta de base de datos existe
+if (!fs.existsSync(databaseFolder)) {
+  // Si la carpeta no existe, crearla
+  fs.mkdirSync(databaseFolder);
+}
 
 // Verificar si el archivo de base de datos existe
 const dbExists = fs.existsSync(dbPath);
 
 // Abrir la conexión a la base de datos
 const db = new sqlite3.Database(dbPath);
+
 exports.CreateDataBase = () => {
-if (!dbExists) {
-  // Si el archivo de base de datos no existe, crear la tabla de usuarios
-  db.run(`CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    lastname TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT NOT NULL,
-    appointmentType TEXT NOT NULL,
-    appointmentDate TEXT NOT NULL,
-    appointmentTime TEXT NOT NULL,
-    attendance INTEGER NOT NULL
-  )`);
-}
+  if (!fs.existsSync(dbPath)) {
+    // Si el archivo de base de datos no existe, crear la tabla de usuarios
+    db.run(`CREATE TABLE users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      lastname TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT NOT NULL,
+      appointmentType TEXT NOT NULL,
+      appointmentDate TEXT NOT NULL,
+      appointmentTime TEXT NOT NULL,
+      attendance INTEGER NOT NULL
+    )`);
+  }
 };
 
 exports.POSTRegisterForm = async (e, formDataJSON) => {
@@ -46,7 +56,7 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
         formData.appointmentType,
         formData.appointmentDate,
         formData.appointmentTime,
-        0
+        0,
       ],
       function(err) {
         if (err) {
@@ -63,12 +73,13 @@ exports.POSTRegisterForm = async (e, formDataJSON) => {
   // No cerrar la conexión a la base de datos aquí para que siga abierta y se pueda acceder a los datos guardados
 };
 exports.searchAppointments = async (event, searchValues) => {
+  
   const webContents = event.sender;
   if (searchValues) {
     const SearchValues = JSON.parse(searchValues);
     const query = `SELECT *, strftime('%s', appointmentDate || ' ' || appointmentTime) AS appointmentTimeUnix FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentTimeUnix ASC`;
     const searchValue = `%${SearchValues.keyword}%`;
-    console.log(query, searchValue); 
+ 
     db.all(query, [searchValue], (err, rows) => {
       if (err) {
         console.error(err.message);
@@ -83,7 +94,10 @@ exports.searchAppointments = async (event, searchValues) => {
 };
 
 
+
+
 exports.checkAppointments = async ()=> {
+
   try {
     // Obtener la cita más cercana
     const now = Math.floor(Date.now() / 1000); // tiempo actual en Unix
@@ -94,11 +108,14 @@ exports.checkAppointments = async ()=> {
         else resolve(row);
       });
     });
+    
+
+
     // Si se encontró una cita cercana, esperar hasta la hora de la cita para emitir una alerta
     if (appointment) {
-      const appointmentTime = Math.floor(new Date(appointment.appointmentDate + ' ' + appointment.appointmentTime).getTime() / 1000);
+      const appointmentTime = Math.floor(new Date(appointment.appointmentDate + ' ' + appointment.appointmentTime).getTime() / 1000); // tiempo de la cita en Unix
       const timeToAppointment = appointmentTime - now; // diferencia en segundos entre la hora actual y la hora de la cita
-
+      
       setTimeout(() => {
         const message = `La cita para ${appointment.name} ${appointment.lastname} está programada para el ${appointment.appointmentDate} a las ${appointment.appointmentTime}.\n¡Es hora de su cita!`;
 
@@ -120,37 +137,40 @@ exports.checkAppointments = async ()=> {
             console.log(`La cita para ${appointment.name} ${appointment.lastname} ha sido marcada como atendida.`);
 
             // Pasar a la siguiente cita
-            checkAppointments();
+            exports.checkAppointments();
           }
         });
       }, timeToAppointment * 1000); // convertir la diferencia de segundos a milisegundos para setTimeout()
 
     } else {
       // No hay citas cercanas, cerrar la conexión a la base de datos
-      console.log('No hay citas programadas.');
     }
   } catch (error) {
     console.error(error);
   }
 }
+ //llamar a la función para iniciar la recursión después de la primera cita programada
+
+
+
 
 exports.AppointToday = async (event, JSONDateValues) => {
   const webContents = event.sender;
   if (JSONDateValues) {
     const todayDateValue = JSON.parse(JSONDateValues);
     const query = `SELECT * FROM users WHERE appointmentDate = '${todayDateValue}' ORDER BY  appointmentTime ASC`;
-    console.log(query); 
+     
     db.all(query, (err, rows) => {
       if (err) {
         console.error(err.message);
         event.sender.send('today-appoints-reply', []);
       } else {
-        console.log(rows);
+        
         const Rows = JSON.stringify(rows)
         event.sender.send('today-appoints-reply', Rows);
       }
       // Close the database connection after the search operation is finished
-      console.log('Closing the database connection.');
+      console.log('prueba.');
     });
   }
 };

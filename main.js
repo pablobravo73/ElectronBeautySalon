@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, webContents } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
+
 const path = require('path')
 const util = require('util');
 const sqlite3 = require('sqlite3').verbose();
@@ -6,10 +7,16 @@ const sqlite3 = require('sqlite3').verbose();
 // const { POSTRegisterForm} = require('./core/views/CRUD.js')
 // const { searchAppointments } = require('./core/views/search.js')
 // const { AppointToday } = require('./core/views/sideNextDate.js')
+// const { checkAppointments } = require('./core/backend/silentClock.js');
 
-const { CreateDataBase, POSTRegisterForm, searchAppointments, AppointToday } = require('./core/models/models.js')
+const { CreateDataBase, 
+  POSTRegisterForm, 
+  searchAppointments, 
+  AppointToday, 
+  checkAppointments,
+   } = require('./core/models/models.js')
 
-const { checkAppointments } = require('./core/backend/silentClock.js');
+// const { checkAppointments } = require('./core/backend/silentClock.js');
 
 
 function createWindow () {
@@ -30,6 +37,7 @@ function createWindow () {
 }
 
 app.whenReady().then(() => {
+  
   setInterval(() => {
     checkAppointments();
     console.log('checking appointments');
