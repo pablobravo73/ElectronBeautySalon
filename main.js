@@ -37,14 +37,22 @@ function createWindow () {
   //mainWindow.webContents.openDevTools()
 }
 
-app.whenReady().then(() => {
+app.whenReady()  // when the app is ready, create the window
+.then(() => {
+
+// app.whenReady().then(() => {
   
+//   setInterval(() => {
+//     checkAppointments();
+//     console.log('checking appointments');
+//   }, 60000);
+  
+  CreateDataBase();
   setInterval(() => {
     checkAppointments();
     console.log('checking appointments');
   }, 60000);
   
-  CreateDataBase();
   
   ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process
   ipcMain.handle('search-appointments', searchAppointments)

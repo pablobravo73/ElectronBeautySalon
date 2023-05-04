@@ -6,7 +6,7 @@ const fs = require('fs');
 // Obtener la ruta de la carpeta de datos de la aplicación
 const userDataPath = app.getPath('userData');
 const databaseFolder = path.join(userDataPath, 'database');
-const dbPath = path.join(databaseFolder, 'mydatabase.db');
+const dbPath = path.join(databaseFolder, 'beautydatabase.db');
 
 // Imprimir la ruta de la carpeta de datos
 console.log(`La carpeta de datos esta en: ${userDataPath}`);
@@ -17,16 +17,24 @@ if (!fs.existsSync(databaseFolder)) {
   fs.mkdirSync(databaseFolder);
 }
 
-// Verificar si el archivo de base de datos existe
-const dbExists = fs.existsSync(dbPath);
+// // Verificar si el archivo de base de datos existe
+// const dbExists = fs.existsSync(dbPath);
+
+// if (!dbExists) {
+//   // Si el archivo de base de datos no existe, crearlo
+//   fs.writeFileSync(dbPath, '');
+// }
 
 // Abrir la conexión a la base de datos
 const db = new sqlite3.Database(dbPath);
 
+
+
 exports.CreateDataBase = () => {
-  if (!fs.existsSync(dbPath)) {
+  
+  if (fs.existsSync(dbPath)) {
     // Si el archivo de base de datos no existe, crear la tabla de usuarios
-    db.run(`CREATE TABLE users (
+    db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       lastname TEXT NOT NULL,
@@ -218,7 +226,7 @@ exports.DownLoadAppointments = async (event, JSONSearchValues) => {
 
 // // Obtener la ruta de la carpeta de datos de la aplicación
 // const userDataPath = app.getPath('userData');
-// const dbPath = path.join(userDataPath, 'mydatabase.db');
+// const dbPath = path.join(userDataPath, 'beautydatabase.db');
 
 // // Verificar si el archivo de base de datos existe
 // const dbExists = fs.existsSync(dbPath);
