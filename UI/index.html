@@ -23,7 +23,7 @@
                     <a href="#">Calendario</a></li>
                 <li>
                     <img src="./img/inventory.png">
-                    <a href="#">Agendar Citas</a></li>
+                    <a href="#" id="agendar-citas">Agendar Citas</a></li>
                 <li>
                     <img src="./img/money.png">
                     <a href="#">ventas</a></li>
@@ -57,42 +57,46 @@
             </div>
         </div>
         <div class="content-body">
-            <div class="content-form">
-                <form id="apointRegisterForm" class="container-form">
-                    <h3>Agendar Cita</h3>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="fname" required pattern="[a-zA-Z]+" />
+            <div class="modalForm">
+            <span class="close">&times;</span>
+                <div class="content-form">
+                    <form id="apointRegisterForm" class="container-form">
+                        <h3>Agendar Cita</h3>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" name="nombre" id="fname" required pattern="[a-zA-Z]+" />
 
-                    <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="lastname" required pattern="[a-zA-Z]+" />
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" name="apellido" id="lastname" required pattern="[a-zA-Z]+" />
 
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" name="telefono" id="phone" required pattern="[0-9]{10}" maxlength="10"
-                        minlength="10" />
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" name="telefono" id="phone" required pattern="[0-9]{10}" maxlength="10"
+                            minlength="10" />
 
-                    <label for="correo">Correo electrónico:</label>
-                    <input type="email" name="correo" id="email" required />
+                        <label for="correo">Correo electrónico:</label>
+                        <input type="email" name="correo" id="email" required />
 
-                    <label for="servicio">Servicio:</label>
-                    <select name="servicio" id="service" required>
-                        <option value="">-- Seleccione un servicio --</option>
-                        <option value="corte">Corte</option>
-                        <option value="manicure">Manicure</option>
-                        <option value="pedicure">Pedicure</option>
-                        <option value="tinte">Tinte</option>
-                        <option value="peinado">Peinado</option>
-                        <option value="maquillaje">Maquillaje</option>
-                    </select>
+                        <label for="servicio">Servicio:</label>
+                        <select name="servicio" id="service" required>
+                            <option value="">-- Seleccione un servicio --</option>
+                            <option value="corte">Corte</option>
+                            <option value="manicure">Manicure</option>
+                            <option value="pedicure">Pedicure</option>
+                            <option value="tinte">Tinte</option>
+                            <option value="peinado">Peinado</option>
+                            <option value="maquillaje">Maquillaje</option>
+                        </select>
 
-                    <label for="fecha">Fecha de cita:</label>
-                    <input type="date" name="fecha" id="date" required />
+                        <label for="fecha">Fecha de cita:</label>
+                        <input type="date" name="fecha" id="date" required />
 
-                    <label for="hora">Hora de cita:</label>
-                    <input type="time" name="hora" id="time" required />
+                        <label for="hora">Hora de cita:</label>
+                        <input type="time" name="hora" id="time" required />
 
-                    <input type="submit" id="submit" value="Agendar" />
-                </form>
-            </div>
+                        <input type="submit" id="submit" value="Agendar" />
+                    </form>
+                </div>
+                
+        </div>
             <div class="searchResponse" id="search-results">
                 <h3>Respuesta</h3>
                 <div class="Response" id="Response"></div>

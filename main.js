@@ -14,58 +14,61 @@ const { CreateDataBase,
   searchAppointments, 
   AppointToday, 
   checkAppointments,
-  DownLoadAppointments
+  //DownLoadAppointments
    } = require('./core/models/models.js')
 
 // const { checkAppointments } = require('./core/backend/silentClock.js');
 
+let mainWindow; // Definimos la variable mainWindow como una variable global
 
 function createWindow () {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1920,
-    height: 1020,
+    height: 1080,
     icon: path.join(__dirname, './UI/img/crown.png'),
     webPreferences: {
       preload: path.join(__dirname, './core/preload.js')
     }
-  })
-
-  mainWindow.loadFile('./UI/index.html')
-  
-  
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  }
+  )
+  mainWindow.setMenuBarVisibility(false)
+  mainWindow.loadFile('./UI/index.html')  
 }
 
-app.whenReady()  // when the app is ready, create the window
+
+
+
+app.whenReady()
 .then(() => {
 
-// app.whenReady().then(() => {
-  
-//   setInterval(() => {
-//     checkAppointments();
-//     console.log('checking appointments');
-//   }, 60000);
-  
   CreateDataBase();
   setInterval(() => {
     checkAppointments();
     console.log('checking appointments');
   }, 60000);
+
+  
+  ipcMain.handle('open-appointment-window', () => {
+    const modalWindow = new BrowserWindow({
+      parent: mainWindow,
+      modal: true,
+      width: 400,
+      height: 300,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true,
+        preload: path.join(__dirname, 'preload.js')
+      }
+    })
+    modalWindow.loadFile('./UI/modal.html')
+  })
   
   
-  ipcMain.handle('setFormData', POSTRegisterForm) // handle the event from the renderer process
+  ipcMain.handle('setFormData', POSTRegisterForm)
   ipcMain.handle('search-appointments', searchAppointments)
   ipcMain.handle('today-appoints', AppointToday)
-  ipcMain.handle('download-appointments', DownLoadAppointments)
-
-  
-
-  
-
   createWindow()
-
-
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

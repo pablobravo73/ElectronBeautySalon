@@ -1,3 +1,23 @@
+
+
+const botonAgendarCitas = document.querySelector("#agendar-citas");
+const widthValue = 0;
+
+botonAgendarCitas.addEventListener("click", async (e) => {
+  e.preventDefault();
+  window.api.openApointmentWindow();
+
+});
+
+// renderer process (mainWindow)
+
+//childWindow.document.write('<h1>Hello</h1>')
+
+
+
+
+
+
 // POST request to create a new appointment
 const formulario = document.getElementById('apointRegisterForm');
 
@@ -88,19 +108,28 @@ window.api.searchReply((event, rows) => {
       divButton.innerHTML = "";
       divResultados.innerHTML = "";
       divResultados.appendChild(tabla);
+
       divButton.innerHTML = `
       <br />
       <div class = "button-container">
-        <button id="download-button" class="download-button" icon="./img/money.png">Descargar</button>
+        
         <button id="delete-button" class="btn-danger">cerrar</button>       
       </div>
       `;
+      
+      // divButton.innerHTML = `
+      // <br />
+      // <div class = "button-container">
+      //   <button id="download-button" class="download-button" icon="./img/money.png">Descargar</button>
+      //   <button id="delete-button" class="btn-danger">cerrar</button>       
+      // </div>
+      // `;
       // Manejador de eventos para el botón de descarga
-      const downloadButton = document.getElementById("download-button");
-      downloadButton.addEventListener("click", async(e) => {
-        const JSONSearchValues = JSON.stringify(citas);
-        window.api.downloadAppointments(JSONSearchValues);
-      });
+      // const downloadButton = document.getElementById("download-button");
+      // downloadButton.addEventListener("click", async(e) => {
+      //   const JSONSearchValues = JSON.stringify(citas);
+      //   window.api.downloadAppointments(JSONSearchValues);
+      // });
 
 
 

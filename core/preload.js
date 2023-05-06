@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('api', {
   todayAppointsReply: (callback) => ipcRenderer.on('today-appoints-reply', callback),
   downloadAppointments:(JSONSearchValues) => ipcRenderer.invoke('download-appointments', JSONSearchValues),
   downloadAppointmentsReply: (callback) => ipcRenderer.on('download-appointments-reply', callback),
+  openApointmentWindow: () => ipcRenderer.invoke('open-appointment-window'),
 });
 
 
