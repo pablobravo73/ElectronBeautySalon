@@ -1,20 +1,12 @@
 
 
 const botonAgendarCitas = document.querySelector("#agendar-citas");
-const widthValue = 0;
 
 botonAgendarCitas.addEventListener("click", async (e) => {
   e.preventDefault();
   window.api.openApointmentWindow();
 
 });
-
-// renderer process (mainWindow)
-
-//childWindow.document.write('<h1>Hello</h1>')
-
-
-
 
 
 
@@ -27,14 +19,23 @@ const resultsDiv = document.getElementById("results");
 
 searchButton.addEventListener("click", async(e) => {
   e.preventDefault();
-  const Searchvalues = {
-    category: searchCategory.value,
-    keyword: searchKeyword.value
-  };
-  const JSONSearchValues = JSON.stringify(Searchvalues);
-  console.log(JSONSearchValues);
-  window.api.searchAppointments(JSONSearchValues); 
+  try {
+    const Searchvalues = {
+      category: searchCategory.value,
+      keyword: searchKeyword.value,
+    }; 
+    if (Searchvalues.keyword.trim() === "") {
+      alert("Ingrese un valor de búsqueda");
+      return;
+    }
+    const JSONSearchValues = JSON.stringify(Searchvalues);
+    window.api.searchAppointments(JSONSearchValues);
+  } catch (error) {
+    console.error(error);
+  }
 });
+
+
 
 
 
@@ -48,10 +49,6 @@ window.api.searchReply((event, rows) => {
       // Creamos una tabla en memoria
       let tabla = document.createElement('table');
       tabla.classList.add('tableclass');
-      
-     
-
-
 
       // Agregamos la fila de encabezado
       let encabezado = tabla.createTHead();
@@ -141,7 +138,7 @@ DateButton.addEventListener("click", async (e) => {
 window.api.downloadAppointmentsReply((event, rows) => {
   
   const usersDate = JSON.parse(rows);
-  console.log(rows);
+  
   const csv = usersDate.map((row) => Object.values(row));
   csv.unshift(Object.keys(usersDate[0]));
   const csvArray = csv.join("\n");
@@ -176,7 +173,7 @@ window.api.todayAppointsReply((event, rows) => {
       // Convertir la fecha y hora de la cita en milisegundos Unix
       const appointmentDateTime = appointmentDate + ' ' + appointmentTime;
       const appointmentDateTimeUnix = new Date(appointmentDateTime).getTime();
-      console.log(appointmentDateTimeUnix);
+      
 
       if (appointmentDateTimeUnix >= nowUnix) {
         // crear elementos HTML
@@ -209,7 +206,7 @@ window.api.todayAppointsReply((event, rows) => {
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
       } else {
-        console.log("No hay citas disponibles");
+        
       }
     });
     if (cardContainer.innerHTML === "") {

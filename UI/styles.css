@@ -52,9 +52,20 @@ body {
       -20px -20px 60px #ffffff;
 }
 
+.nav-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+
 .navbar img {
-  width: 25px;
-  height: 25px;
+  width: 1.9em;
+  height: 1.9em;
   margin: 0 15px;
   
 }
@@ -64,9 +75,11 @@ body {
 }
 .navbar ul{ 
   list-style: none;
-  margin: 5px;
+  margin: 3px;
   padding: 0;
-  margin: 5px;
+  text-align: start;
+  font-size: 1.1em;
+  font-weight: 400;
 }
 
 .navbar li{
@@ -87,11 +100,12 @@ body {
 
 .navbar li:hover {
   background-color: #b6bde182;
+  border-right: 4px solid #3082da82;
+  border-radius: 5px;
 }
 
 .navbar li:active {
-  border-left: 4px solid #b6bde182;
-  padding-left: 10px;
+  background-color: #3082da82;
 }
 
 .content {
@@ -135,7 +149,7 @@ body {
   border-radius: 3px;
   margin: 0 5px 0 5px;
   padding: 5px;
-  font-size: 1rem;
+  font-size: 1.2em;
   font-weight: bold;
   cursor: pointer;
 }
@@ -211,7 +225,7 @@ select, input[type="search"] {
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #3498db;
   color: #ffffff;
   border: none;
   cursor: pointer;
