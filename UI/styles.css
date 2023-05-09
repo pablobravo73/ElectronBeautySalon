@@ -1,6 +1,15 @@
 * ::-webkit-scrollbar{
-  box-sizing: border-box;
+  background-color: #F3F2EF;
 }
+
+body {
+  margin: 5;
+  height: 100%;
+  font-weight: 400;
+  font-size: 1rem;
+  background-color: #F3F2EF;
+}
+
 
 .h2  {
   font-family: 'Roboto', sans-serif;
@@ -13,27 +22,27 @@
 .main-container {
   display: flex;
   justify-content: space-between;
-  height: 98vh;
+  height: 100%;
+  width: 100%;
+  background-color: #F3F2EF
 }
 
 .appointments-column {
   width : 32vh ;
   height: 95vh;
-  border-radius: 3px;
-  border: 1px black solid;
+  border-radius: 10px; 
   padding: 10px;
-  background-color: #FBFBFC;
-  
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
 }
 
 .navbar {
   width : 25vh ;
   height: 95vh;
-  border-radius: 3px;
-  border: 1px black solid;
+  border-radius: 10px;
   padding: 10px;
-  background-color: #FBFBFC;
-
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar img {
@@ -69,32 +78,34 @@
 }
 
 .navbar li:hover {
-  background-color: orange;
+  background-color: #b6bde182;
 }
 
 .navbar li:active {
-  border-left: 4px solid orange;
+  border-left: 4px solid #b6bde182;
   padding-left: 10px;
 }
 
 .content {
   width: 60%;
-  border-radius: 3px;
+  border-radius: 10px;
   margin: 0 5px 0 5px;
 }
 .content-header, .content-body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  border-radius: 10px;
 }
 
 .content-body {
   display: flex;
   flex-direction: row;
-  height: 75vh;
-  justify-content: space-between;
+  height: 60vh;
+  justify-content: center;
   padding: 20px 5px 5px 5px;
   margin: 0px;
+  border-radius: 10px;
 }
 
 .button-container {
@@ -129,47 +140,82 @@
   cursor: pointer;
 }
 
-.searchResponse {
-  height: 80vh;
-}
 
-.container-form {
-  width: 25vh;
-  border-radius: 3px;
-  border: 1px black solid;
-  padding: 10px 10px 20px 10px;
-  background-color: #FBFBFC;
-  height: 70vh;
-}
+
 .searchResponse {
   display: inline-table;
   width: 73%;
-  border-radius: 3px;
-  border: 1px black solid;
+  height: 70vh;
+  border-radius: 10px;
   padding-left: 5px;
   background-color: #FBFBFC;
   flex-wrap: wrap;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.content-form{
-  width: 20%;
-  justify-content: start;
-}
-
-
-.container-form {
+.content-header {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 800px;
+  width: 100%;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+label {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+select, input[type="search"] {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  margin-right: 10px;
+  width: 200px;
+}
+
+#search-button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #0062cc;
+}
+
+  
+
 
 .content-header h2, .content-body h3 {
   text-align: center;
 }
 
 .Response {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: scroll;
+  background-color:#F3F2EF ;
 }
 .tableclass {
   border: #000000 1px solid;
@@ -203,6 +249,52 @@ td:first-child {
   
 }
 
+.appointments-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.appointments-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.calendar {
+  display: flex;
+  align-items: center;
+}
+
+.calendar input[type="date"] {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  margin-right: 10px;
+  padding: 5px;
+  width: 150px;
+}
+
+.calendar button {
+  background-color: #3498db;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 12px;
+}
+
+
+.card-matrix {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: none;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding: 10px;
+}
 
 .card-matrix {
   display: flex;
@@ -216,7 +308,7 @@ td:first-child {
 .card-matrix-container {
   display: flex;
   flex-direction: column;
-  align-content: space-around;
+  align-items: center;
   overflow-y: scroll;
   justify-content: baseline;
   max-height: 75vh; /* altura máxima del contenedor */
@@ -278,3 +370,7 @@ td:first-child {
   margin: 0;
 }
 
+.card-date {
+  font-size: 1rem;
+  margin: 0;
+}

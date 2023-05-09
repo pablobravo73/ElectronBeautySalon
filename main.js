@@ -53,14 +53,15 @@ app.whenReady()
       parent: mainWindow,
       modal: true,
       width: 400,
-      height: 300,
+      height: 700,
+      icon: path.join(__dirname, './UI/img/crown.png'),
       webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: true,
         enableRemoteModule: true,
-        preload: path.join(__dirname, 'preload.js')
+        preload: path.join(__dirname, './core/preload.js')
       }
     })
+    modalWindow.setMenuBarVisibility(false)
     modalWindow.loadFile('./UI/modal.html')
   })
   

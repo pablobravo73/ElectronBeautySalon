@@ -10,122 +10,90 @@
 </head>
 
 <body>
-<div class="main-container">
-    <div class="navbar">
-        <div class="nav-header" ></div>
+    <div class="main-container">
+        <div class="navbar">
+            <div class="nav-header"></div>
             <h2>Salon de Belleza</h2>
-        <div class="nav-body">
-            <ul>
-                <li>
-                    <img src="./img/home.png">
-                    <a href="#">Main</a></li>
-                <li><img src="./img/calendar.png">
-                    <a href="#">Calendario</a></li>
-                <li>
-                    <img src="./img/inventory.png">
-                    <a href="#" id="agendar-citas">Agendar Citas</a></li>
-                <li>
-                    <img src="./img/money.png">
-                    <a href="#">ventas</a></li>
-                <li><img src="./img/inventory.png">
-                    <a href="#">Inventario</a></li>
-            </l>
-        </div>
-    </div>
-    <div class="content">
-        <div class="content-header">
-            <div class="search-bar">
-                <!-- Buscador estándar para las categorías de captura -->
-                <h2>Buscar citas</h2>
-                
-                <label for="search-category">Categoría:</label>
-                <select id="search-category" name="search-category">
-                    <option value="name">Nombre</option>
-                    <option value="lastname">Apellido</option>
-                    <option value="phone">Teléfono</option>
-                    <option value="email">Email</option>
-                    <option value="appointmentType">Tipo de cita</option>
-                    <option value="appointmentDate">Fecha de la cita</option>
-                    <option value="appointmentTime">Hora de la cita</option>
-                </select>
-
-                <label for="search-keyword">Palabra clave:</label>
-                <input type="search" id="search-keyword" name="search-keyword">
-
-                <button id="search-button">Buscar</button>
-
+            <div class="nav-body">
+                <ul>
+                    <li>
+                        <img src="./img/home.png">
+                        <a href="#">Main</a>
+                    </li>
+                    <li>
+                        <img src="./img/inventory.png">
+                        <a href="#" id="agendar-citas">Agendar Citas</a>
+                    </li>
+                    <li>
+                        <img src="./img/calendar.png">
+                        <a href="#">Calendario</a>
+                    </li>
+                    
+                    <li>
+                        <img src="./img/money.png">
+                        <a href="#">ventas</a>
+                    </li>
+                    <li><img src="./img/inventory.png">
+                        <a href="#">Inventario</a>
+                    </li>
+                    </l>
             </div>
         </div>
-        <div class="content-body">
-            <div class="modalForm">
-            <span class="close">&times;</span>
-                <div class="content-form">
-                    <form id="apointRegisterForm" class="container-form">
-                        <h3>Agendar Cita</h3>
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" name="nombre" id="fname" required pattern="[a-zA-Z]+" />
+        <div class="content">
+            <div class="content-header">
+                <div class="search-bar">
+                    <!-- Buscador estándar para las categorías de captura -->
+                    <h2>Buscar citas</h2>
 
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" name="apellido" id="lastname" required pattern="[a-zA-Z]+" />
+                    <label for="search-category">Categoría:</label>
+                    <select id="search-category" name="search-category">
+                        <option value="name">Nombre</option>
+                        <option value="lastname">Apellido</option>
+                        <option value="phone">Teléfono</option>
+                        <option value="email">Email</option>
+                        <option value="appointmentType">Tipo de cita</option>
+                        <option value="appointmentDate">Fecha de la cita</option>
+                        <option value="appointmentTime">Hora de la cita</option>
+                    </select>
 
-                        <label for="telefono">Teléfono:</label>
-                        <input type="tel" name="telefono" id="phone" required pattern="[0-9]{10}" maxlength="10"
-                            minlength="10" />
+                    <label for="search-keyword">Palabra clave:</label>
+                    <input type="search" id="search-keyword" name="search-keyword">
 
-                        <label for="correo">Correo electrónico:</label>
-                        <input type="email" name="correo" id="email" required />
+                    <button id="search-button">Buscar</button>
 
-                        <label for="servicio">Servicio:</label>
-                        <select name="servicio" id="service" required>
-                            <option value="">-- Seleccione un servicio --</option>
-                            <option value="corte">Corte</option>
-                            <option value="manicure">Manicure</option>
-                            <option value="pedicure">Pedicure</option>
-                            <option value="tinte">Tinte</option>
-                            <option value="peinado">Peinado</option>
-                            <option value="maquillaje">Maquillaje</option>
-                        </select>
-
-                        <label for="fecha">Fecha de cita:</label>
-                        <input type="date" name="fecha" id="date" required />
-
-                        <label for="hora">Hora de cita:</label>
-                        <input type="time" name="hora" id="time" required />
-
-                        <input type="submit" id="submit" value="Agendar" />
-                    </form>
                 </div>
-                
+            </div>
+            <div class="content-body">
+
+                <div class="searchResponse" id="search-results">
+                    <h3>Respuesta</h3>
+                    <div class="Response" id="Response"></div>
+                    <div id="insert-button"></div>
+                </div>
+            </div>
         </div>
-            <div class="searchResponse" id="search-results">
-                <h3>Respuesta</h3>
-                <div class="Response" id="Response"></div>
-                <div id="insert-button"></div>
+        <div class="appointments-column">
+            <div class="appointments-header">
+                <h2>Próximas Citas</h2>
+
+
+                <div class="calendar">
+
+                    <input type="date" id="findDate" name="date" class="findDate">
+                    <button id="submitDate">Buscar</button>
+
+                </div>
+            </div>
+            <br />
+            <div class="card-matrix">
+                <div class="card-matrix-container">
+                    <div id="insert-today-date"></div>
+
+                </div>
             </div>
         </div>
     </div>
-    <div class="appointments-column">
-        <div class="appointments-header">
-            <h2>Próximas Citas</h2>
-           
-            
-            <div class="calendar">
-                
-                <input type="date" id="findDate" name="date" class="findDate">
-                <button id="submitDate">Buscar</button>
-                
-            </div>
-        </div>
-        <br />
-        <div class="card-matrix">
-            <div class="card-matrix-container">
-                <div id="insert-today-date"></div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-<script src="./renderer.js"></script>
+    <script src="./renderer.js"></script>
 </body>
 
 </html
