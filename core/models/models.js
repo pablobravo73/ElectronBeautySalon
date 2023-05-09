@@ -85,7 +85,7 @@ exports.searchAppointments = async (event, searchValues) => {
   const webContents = event.sender;
   if (searchValues) {
     const SearchValues = JSON.parse(searchValues);
-    const query = `SELECT *, strftime('%s', appointmentDate || ' ' || appointmentTime) AS appointmentTimeUnix FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentTimeUnix ASC`;
+    const query = `SELECT *, strftime('%s', appointmentDate || ' ' || appointmentTime) AS appointmentTimeUnix FROM users WHERE ${SearchValues.category} LIKE ? ORDER BY appointmentTimeUnix DESC`;
     const searchValue = `%${SearchValues.keyword}%`;
  
     db.all(query, [searchValue], (err, rows) => {
@@ -217,34 +217,3 @@ exports.DownLoadAppointments = async (event, JSONSearchValues) => {
 
 
 
-
-
-// const sqlite3 = require('sqlite3').verbose();
-// const { app } = require('electron');
-// const path = require('path');
-// const fs = require('fs');
-
-// // Obtener la ruta de la carpeta de datos de la aplicación
-// const userDataPath = app.getPath('userData');
-// const dbPath = path.join(userDataPath, 'beautydatabase.db');
-
-// // Verificar si el archivo de base de datos existe
-// const dbExists = fs.existsSync(dbPath);
-
-// // Abrir la conexión a la base de datos
-// const db = new sqlite3.Database(dbPath);
-
-// if (!dbExists) {
-//   // Si el archivo de base de datos no existe, crear la tabla de usuarios
-//   db.run(`CREATE TABLE users (
-//     id INTEGER PRIMARY KEY AUTOINCREMENT,
-//     name TEXT NOT NULL,
-//     lastname TEXT NOT NULL,
-//     phone TEXT NOT NULL,
-//     email TEXT NOT NULL,
-//     appointmentType TEXT NOT NULL,
-//     appointmentDate TEXT NOT NULL,
-//     appointmentTime TEXT NOT NULL,
-//     attendance INTEGER NOT NULL
-//   )`);
-// }
