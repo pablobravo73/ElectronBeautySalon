@@ -14,10 +14,15 @@ body {
 .h2  {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: #000000;
   margin: 0;
 }
+
+.h3 {
+  font-size: 1.25em;
+}
+
 
 .main-container {
   display: flex;
@@ -30,25 +35,28 @@ body {
 .appointments-column {
   width : 32vh ;
   height: 95vh;
-  border-radius: 10px; 
   padding: 10px;
   background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+  border-radius: 20px;
+    box-shadow: 20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
 }
 
 .navbar {
   width : 25vh ;
   height: 95vh;
-  border-radius: 10px;
   padding: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 20px;
+    box-shadow: 20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
 }
 
 .navbar img {
   width: 25px;
   height: 25px;
   margin: 0 15px;
+  
 }
 
 .navbar h2, .appointments-column h2 {
@@ -90,6 +98,10 @@ body {
   width: 60%;
   border-radius: 10px;
   margin: 0 5px 0 5px;
+  background-color: #ffffff;
+  border-radius: 20px;
+    box-shadow: 20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
 }
 .content-header, .content-body {
   display: flex;
@@ -105,7 +117,7 @@ body {
   justify-content: center;
   padding: 20px 5px 5px 5px;
   margin: 0px;
-  border-radius: 10px;
+
 }
 
 .button-container {
@@ -152,19 +164,23 @@ body {
   flex-wrap: wrap;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .content-header {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
 }
 
 .search-bar {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   max-width: 800px;
@@ -203,27 +219,31 @@ select, input[type="search"] {
 
 #search-button:hover {
   background-color: #0062cc;
-}
-
-  
-
+} 
 
 .content-header h2, .content-body h3 {
   text-align: center;
 }
 
 .Response {
-  max-height: 400px;
+  max-height: 400px;;
   overflow-y: scroll;
-  background-color:#F3F2EF ;
+  background-color:#fff; 
+  
 }
 .tableclass {
-  border: #000000 1px solid;
+  width: 99vh;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 thead tr {
   background-color: #333;
   color: #fff;
+  width: 90vh;
+  height: 30px;
 }
 
 /* Estilos para las celdas de encabezado */
@@ -231,23 +251,31 @@ thead th {
   padding: 10px;
 }
 
+tbody tr {
+  border-bottom: 3px solid #ccc;
+  border-radius: 20px;  
+}
 
 /* Estilos para las filas impares */
 tbody tr:nth-child(odd) {
-  background-color: #f2f2f2;
+  border-bottom: 3px solid #ccc;
+  border-radius: 20px;
 }
 
 /* Estilos para las celdas de datos */
 td {
   padding: 10px;
-  border: 1px solid #ddd;
+  font-size: 1.2em;
+  height: 30px;
+  text-align: center;
 }
 
 /* Estilos para la celda de datos de la primera columna */
 td:first-child {
   font-weight: bold;
-  
 }
+
+
 
 .appointments-header {
   display: flex;
@@ -296,14 +324,7 @@ td:first-child {
   padding: 10px;
 }
 
-.card-matrix {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: none;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  padding: 10px;
-}
+
 
 .card-matrix-container {
   display: flex;
@@ -321,13 +342,14 @@ td:first-child {
   align-items: center;
   height: 15vh;
   width: 24.5vh;
-  border:#000000 1px solid;
+  border: #000000 1px solid;
   border-radius: 3px;
   flex-wrap: wrap;
   margin: 8px;
   padding-bottom: 5px;
-  box-shadow: #000000 1px 1px 1px 1px;
-  
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .card-body {
